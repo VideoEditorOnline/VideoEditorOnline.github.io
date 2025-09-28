@@ -327,21 +327,7 @@ export const Timeline = ({
         </div>
       </div>
 
-      {/* Playhead - positioned only within timeline tracks area */}
-      <div
-        className="absolute w-0.5 bg-red-500 pointer-events-none z-10 shadow-lg"
-        style={{
-          left: `calc(5rem + ${Math.min(playheadPosition, 100)}% * (100% - 5rem) / 100)`,
-          top: '120px', // Start below the time ruler
-          bottom: '16px' // End above the bottom padding
-        }}
-      >
-        {/* Top handle */}
-        <div className="absolute -top-1 -left-1.5 w-3 h-3 bg-red-500 rounded-sm shadow-lg border border-white" />
-
-        {/* Bottom handle */}
-        <div className="absolute -bottom-1 -left-1.5 w-3 h-3 bg-red-500 rounded-sm shadow-lg border border-white" />
-      </div>
+      
     </div>
   );
 };
