@@ -21,13 +21,13 @@ interface TimelineProps {
   onSplitScene?: (time: number) => void;
 }
 
-export const Timeline = ({ 
-  videoData, 
-  textOverlays, 
-  scenes = [], 
-  onSeek, 
-  onAddScene, 
-  onSplitScene 
+export const Timeline = ({
+  videoData,
+  textOverlays,
+  scenes = [],
+  onSeek,
+  onAddScene,
+  onSplitScene
 }: TimelineProps) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -74,7 +74,7 @@ export const Timeline = ({
     const clickX = event.clientX - rect.left;
     const percentage = clickX / rect.width;
     const newTime = percentage * videoData.duration;
-    
+
     onSeek(Math.max(0, Math.min(videoData.duration, newTime)));
   };
 
@@ -116,18 +116,18 @@ export const Timeline = ({
             Professional Timeline
           </h3>
           <div className="flex items-center gap-2">
-            <Button 
-              size="sm" 
-              variant="outline" 
+            <Button
+              size="sm"
+              variant="outline"
               onClick={handleAddScene}
               data-testid="button-add-scene"
             >
               <Plus className="w-3 h-3 mr-1" />
               Scene
             </Button>
-            <Button 
-              size="sm" 
-              variant="outline" 
+            <Button
+              size="sm"
+              variant="outline"
               onClick={handleSplitAtPlayhead}
               data-testid="button-split-scene"
             >
@@ -149,8 +149,8 @@ export const Timeline = ({
       <div className="relative h-6 bg-muted/30 rounded">
         <div className="absolute inset-0 flex">
           {timeMarkers.map((marker, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="flex-1 relative border-l border-muted-foreground/20 first:border-l-0"
             >
               <div className="absolute -top-1 left-0 text-[10px] text-muted-foreground font-mono transform -translate-x-1/2">
@@ -173,7 +173,7 @@ export const Timeline = ({
                 {scenes.map(scene => {
                   const startPercentage = (scene.startTime / videoData.duration) * 100;
                   const widthPercentage = ((scene.endTime - scene.startTime) / videoData.duration) * 100;
-                  
+
                   return (
                     <div
                       key={scene.id}
@@ -215,22 +215,22 @@ export const Timeline = ({
                   {videoData.file?.name || "Video Track"}
                 </span>
               </div>
-              
+
               {/* Waveform visualization placeholder */}
               <div className="absolute bottom-1 left-2 right-2 h-2 flex items-end gap-px">
                 {Array.from({ length: 50 }, (_, i) => (
-                  <div 
-                    key={i} 
-                    className="flex-1 bg-blue-400/60 rounded-sm" 
+                  <div
+                    key={i}
+                    className="flex-1 bg-blue-400/60 rounded-sm"
                     style={{ height: `${Math.random() * 100}%` }}
                   />
                 ))}
               </div>
-              
+
               {/* Track playhead indicator */}
-              <div 
+              <div
                 className="absolute top-0 bottom-0 w-0.5 bg-red-500/80 z-20"
-                style={{ left: `${playheadPosition}%` }}
+                style={{ left: `${Math.min(playheadPosition, 100)}%` }}
               />
             </div>
           </div>
@@ -249,22 +249,22 @@ export const Timeline = ({
                   Audio Track
                 </span>
               </div>
-              
+
               {/* Audio waveform visualization */}
               <div className="absolute bottom-1 left-2 right-2 h-3 flex items-end gap-px">
                 {Array.from({ length: 80 }, (_, i) => (
-                  <div 
-                    key={i} 
-                    className="flex-1 bg-green-400/60 rounded-sm" 
+                  <div
+                    key={i}
+                    className="flex-1 bg-green-400/60 rounded-sm"
                     style={{ height: `${Math.random() * 100}%` }}
                   />
                 ))}
               </div>
-              
+
               {/* Track playhead indicator */}
-              <div 
+              <div
                 className="absolute top-0 bottom-0 w-0.5 bg-red-500/80 z-20"
-                style={{ left: `${playheadPosition}%` }}
+                style={{ left: `${Math.min(playheadPosition, 100)}%` }}
               />
             </div>
           </div>
@@ -279,7 +279,7 @@ export const Timeline = ({
                 {textOverlays.map(overlay => {
                   const startPercentage = (overlay.startTime / videoData.duration) * 100;
                   const widthPercentage = ((overlay.endTime - overlay.startTime) / videoData.duration) * 100;
-                  
+
                   return (
                     <div
                       key={overlay.id}
@@ -294,11 +294,11 @@ export const Timeline = ({
                     </div>
                   );
                 })}
-                
+
                 {/* Track playhead indicator */}
-                <div 
+                <div
                   className="absolute top-0 bottom-0 w-0.5 bg-red-500/80 z-20"
-                  style={{ left: `${playheadPosition}%` }}
+                  style={{ left: `${Math.min(playheadPosition, 100)}%` }}
                 />
               </div>
             </div>
@@ -316,11 +316,11 @@ export const Timeline = ({
               <div className="absolute inset-0 flex items-center px-2 z-10">
                 <span className="text-xs text-muted-foreground">Drop effects here</span>
               </div>
-              
+
               {/* Track playhead indicator */}
-              <div 
+              <div
                 className="absolute top-0 bottom-0 w-0.5 bg-red-500/80 z-20"
-                style={{ left: `${playheadPosition}%` }}
+                style={{ left: `${Math.min(playheadPosition, 100)}%` }}
               />
             </div>
           </div>
@@ -328,17 +328,17 @@ export const Timeline = ({
       </div>
 
       {/* Playhead - positioned only within timeline tracks area */}
-      <div 
+      <div
         className="absolute w-0.5 bg-red-500 pointer-events-none z-10 shadow-lg"
-        style={{ 
-          left: `calc(5rem + ${playheadPosition}% * (100% - 5rem) / 100)`,
+        style={{
+          left: `calc(5rem + ${Math.min(playheadPosition, 100)}% * (100% - 5rem) / 100)`,
           top: '120px', // Start below the time ruler
           bottom: '16px' // End above the bottom padding
         }}
       >
         {/* Top handle */}
         <div className="absolute -top-1 -left-1.5 w-3 h-3 bg-red-500 rounded-sm shadow-lg border border-white" />
-        
+
         {/* Bottom handle */}
         <div className="absolute -bottom-1 -left-1.5 w-3 h-3 bg-red-500 rounded-sm shadow-lg border border-white" />
       </div>
