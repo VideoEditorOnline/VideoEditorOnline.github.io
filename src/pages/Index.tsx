@@ -49,10 +49,11 @@ const Index = () => {
     currentTime: 0,
     isPlaying: false,
   });
-  
+
   const [textOverlays, setTextOverlays] = useState<TextOverlay[]>([]);
   const [stickerOverlays, setStickerOverlays] = useState<StickerOverlay[]>([]);
   const [scenes, setScenes] = useState<Scene[]>([]);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
 
   const handleVideoUpload = (file: File) => {
     const url = URL.createObjectURL(file);
@@ -157,7 +158,7 @@ const Index = () => {
     const activeScene = scenes.find(scene => 
       time >= scene.startTime && time <= scene.endTime
     );
-    
+
     if (activeScene) {
       const newScene: Scene = {
         id: `scene-${Date.now()}`,
@@ -166,13 +167,13 @@ const Index = () => {
         endTime: activeScene.endTime,
         color: activeScene.color
       };
-      
+
       setScenes(prev => prev.map(scene => 
         scene.id === activeScene.id 
           ? { ...scene, endTime: time }
           : scene
       ).concat(newScene));
-      
+
       toast.success('Scene split successfully');
     } else {
       toast.error('No scene to split at current position');
@@ -181,11 +182,11 @@ const Index = () => {
 
   const handleStockVideoSelect = (videoUrl: string, title: string) => {
     console.log("Loading video:", title, "from URL:", videoUrl);
-    
+
     // Create a temporary video element to validate the URL
     const tempVideo = document.createElement('video');
     tempVideo.crossOrigin = "anonymous";
-    
+
     tempVideo.onloadedmetadata = () => {
       console.log("Video metadata loaded successfully");
       setVideoData(prev => ({
@@ -198,11 +199,11 @@ const Index = () => {
       }));
       toast.success(`"${title}" berhasil dimuat!`);
     };
-    
+
     tempVideo.onerror = (error) => {
-      console.error("Video load error:", error);
+      console.log("Video load error:", error);
       toast.error(`Gagal memuat "${title}". Mencoba video alternatif...`);
-      
+
       // Fallback to a different working video
       const fallbackUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
       setVideoData(prev => ({
@@ -215,7 +216,7 @@ const Index = () => {
       }));
       toast.success(`Video alternatif dimuat untuk "${title}"`);
     };
-    
+
     tempVideo.src = videoUrl;
   };
 
@@ -226,13 +227,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Toaster />
-      
+
       {/* Header */}
       <header className="h-16 border-b border-border flex items-center justify-between px-6">
         <h1 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
           Video Editor
         </h1>
-        
+
         {/* Export Button - Professional positioning */}
         <Button
           variant="default"
@@ -278,16 +279,18 @@ const Index = () => {
           </div>
 
           {/* Controls Section - Fixed positioning */}
-          <div className="shrink-0 px-6 py-3 bg-background border-t border-border">
+          <div className="shrink-0 px-6 pb-2 bg-background border-t border-border">
             <Controls 
               videoData={videoData}
               onPlayPause={handlePlayPause}
               onSeek={handleSeek}
+              playbackSpeed={playbackSpeed}
+              onSpeedChange={setPlaybackSpeed}
             />
           </div>
 
           {/* Professional Timeline - Fixed at bottom */}
-          <div className="shrink-0 h-64 p-4 bg-card border-t border-border">
+          <div className="shrink-0 h-64 px-6 bg-card border-t border-border">
             <Timeline 
               videoData={videoData}
               textOverlays={textOverlays}

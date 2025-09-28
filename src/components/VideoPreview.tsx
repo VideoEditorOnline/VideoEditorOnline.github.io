@@ -167,7 +167,7 @@ export const VideoPreview = ({
   );
 
   return (
-    <div className="flex items-center justify-center h-full p-6">
+    <div className="flex items-center justify-between gap-6 h-full p-6">
       <Card className="relative bg-black/98 border border-border/50 shadow-2xl rounded-2xl overflow-hidden">
         <div 
           className="relative bg-black rounded-xl overflow-hidden"
