@@ -19,13 +19,21 @@
     <meta name="twitter:title" content="Video Editor - Professional Online Video Editing Tool" />
     <meta name="twitter:description" content="Professional online video editor with timeline editing, text overlays, and export features." />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <script>
+      // Initialize AdSense early but non-blocking
+      window.adsbygoogle = window.adsbygoogle || [];
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Google AdSense Ad -->
+    <!-- Google AdSense - Load after app renders -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6469854338321342" crossorigin="anonymous"></script>
+    
+    <!-- Ad placement -->
     <ins class="adsbygoogle"
          style="display:block; margin-top: 20px;"
          data-ad-client="ca-pub-6469854338321342"
@@ -33,7 +41,11 @@
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
     <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
+         try {
+           (adsbygoogle = window.adsbygoogle || []).push({});
+         } catch(e) {
+           console.log('AdSense not loaded');
+         }
     </script>
   </body>
 </html>

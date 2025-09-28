@@ -63,7 +63,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
 
     try {
       let searchQuery = query || 'nature';
-      
+
       // Map categories to search terms
       const categoryQueries = {
         nature: 'nature landscape mountain ocean forest',
@@ -78,7 +78,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
       }
 
       const url = `${PEXELS_BASE_URL}/search?query=${encodeURIComponent(searchQuery)}&per_page=15&page=${pageNum}`;
-      
+
       const response = await fetch(url, {
         headers: {
           'Authorization': PEXELS_API_KEY
@@ -90,7 +90,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
       }
 
       const data = await response.json();
-      
+
       return data.videos.map((video: any) => ({
         id: `pexels-${video.id}`,
         title: video.tags ? video.tags.split(',').slice(0, 3).join(' ').trim() || 'Beautiful Video' : 'Beautiful Video',
@@ -162,7 +162,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
 
     const allVideos = Object.values(videoCategories).flat();
     const categoryVideos = category === 'all' ? allVideos : (videoCategories[category as keyof typeof videoCategories] || []);
-    
+
     // Filter by search query
     const filteredVideos = query ? 
       categoryVideos.filter(v => 
@@ -195,10 +195,10 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
 
   const loadVideos = useCallback(async (pageNum: number, category: string, query: string, append: boolean = true) => {
     setIsLoadingMore(true);
-    
+
     try {
       const newVideos = await fetchPexelsVideos(pageNum, category, query);
-      
+
       if (append) {
         setVideos(prev => {
           // Remove duplicates based on ID
@@ -209,10 +209,10 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
       } else {
         setVideos(newVideos);
       }
-      
+
       setHasMore(newVideos.length >= 10); // Pexels returns 15 per page, if we got less than 10, probably near end
       setPage(pageNum);
-      
+
       if (newVideos.length > 0) {
         toast.success(`Loaded ${newVideos.length} new videos from Pexels!`);
       }
@@ -328,7 +328,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
     const matchesSearch = searchQuery === "" || 
       video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       video.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    
+
     return matchesCategory && matchesSearch;
   });
 
@@ -344,10 +344,10 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
         "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
         "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
       ];
-      
+
       // Select a random working video URL
       const randomUrl = workingVideoUrls[Math.floor(Math.random() * workingVideoUrls.length)];
-      
+
       onSelectVideo(randomUrl, video.title);
       toast.success(`"${video.title}" berhasil dimuat ke editor!`);
     } catch (error) {
@@ -500,7 +500,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
             </div>
           </Card>
         ))}
-        
+
         {/* Infinite scroll loading */}
         {isLoadingMore && (
           <div className="space-y-3">
@@ -522,7 +522,7 @@ export const StockLibrary = ({ onSelectVideo }: StockLibraryProps) => {
             ))}
           </div>
         )}
-        
+
         {/* Infinite scroll target */}
         <div ref={observerTarget} className="h-4" />
       </div>
