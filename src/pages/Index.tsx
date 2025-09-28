@@ -234,16 +234,57 @@ const Index = () => {
           Video Editor
         </h1>
 
-        {/* Export Button - Professional positioning */}
-        <Button
-          variant="default"
-          onClick={handleExport}
-          data-testid="button-export"
-          className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
-        >
-          <Download className="w-4 h-4" />
-          Export
-        </Button>
+        {/* Header Actions */}
+        <div className="flex items-center gap-4">
+          {/* Pages Menu */}
+          <div className="relative group">
+            <Button
+              variant="outline"
+              className="gap-2 hover:bg-accent hover:text-accent-foreground"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Pages
+            </Button>
+            
+            {/* Dropdown Menu */}
+            <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="p-2">
+                <a href="#about" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  About Us
+                </a>
+                <a href="#contact" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  Contact
+                </a>
+                <a href="#privacy" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  Privacy Policy
+                </a>
+                <a href="#terms" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  Terms of Service
+                </a>
+                <div className="border-t border-border my-2"></div>
+                <a href="/feed" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  RSS Feed
+                </a>
+                <a href="/sitemap" className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
+                  Sitemap
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Export Button - Professional positioning */}
+          <Button
+            variant="default"
+            onClick={handleExport}
+            data-testid="button-export"
+            className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
+          >
+            <Download className="w-4 h-4" />
+            Export
+          </Button>
+        </div>
       </header>
 
       <div className="flex h-[calc(100vh-4rem)]">
@@ -262,8 +303,8 @@ const Index = () => {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col bg-muted/20">
-          {/* Video Preview Area - Fixed spacing to not overlap controls */}
-          <div className="flex-1 min-h-0 p-6 pb-4">
+          {/* Video Preview Area - Repositioned and styled */}
+          <div className="flex-1 min-h-0 px-6 pt-4">
             {videoData.url ? (
               <VideoPreview 
                 videoData={videoData}
@@ -279,7 +320,7 @@ const Index = () => {
           </div>
 
           {/* Controls Section - Fixed positioning */}
-          <div className="shrink-0 px-6 pb-2 bg-background border-t border-border">
+          <div className="shrink-0 px-6 py-2 bg-background border-t border-border">
             <Controls 
               videoData={videoData}
               onPlayPause={handlePlayPause}

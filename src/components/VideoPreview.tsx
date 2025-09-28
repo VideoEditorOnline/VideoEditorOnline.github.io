@@ -167,12 +167,12 @@ export const VideoPreview = ({
   );
 
   return (
-    <div className="flex items-center justify-between gap-6 h-full p-6">
-      <Card className="relative bg-black/98 border border-border/50 shadow-2xl rounded-2xl overflow-hidden">
+    <div className="w-full h-full flex justify-center items-start pt-4">
+      <div className="bg-card rounded-lg border shadow-lg p-4 w-full max-w-4xl">
         <div 
-          className="relative bg-black rounded-xl overflow-hidden"
+          className="relative bg-black rounded-xl overflow-hidden mx-auto"
           style={{ 
-            width: 'min(90vw, 800px)', 
+            width: 'min(100%, 800px)', 
             height: 'min(50.625vw, 450px)', 
             aspectRatio: '16/9',
             maxWidth: '800px',
@@ -240,7 +240,7 @@ export const VideoPreview = ({
             <div className="absolute inset-0 border-2 border-white/10 rounded-xl pointer-events-none"></div>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
