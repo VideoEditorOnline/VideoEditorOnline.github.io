@@ -1,0 +1,8 @@
+/* Video Editor Styles - Using design system from index.css */
+
+.video-editor-root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
