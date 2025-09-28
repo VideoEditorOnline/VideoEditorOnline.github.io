@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/VideoEditorOnline/' : '/',
+  base: mode === 'production' && process.env.GITHUB_PAGES !== 'custom-domain' ? '/VideoEditorOnline/' : '/',
   server: {
     host: "0.0.0.0",
     port: 5000,

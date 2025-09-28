@@ -8,12 +8,19 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Determine basename based on environment
+const basename = window.location.hostname === 'videoeditoronline.github.io' 
+  ? '' 
+  : import.meta.env.DEV 
+    ? '' 
+    : '/VideoEditorOnline';
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/VideoEditorOnline">
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
